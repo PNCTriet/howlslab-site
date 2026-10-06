@@ -111,6 +111,11 @@ function parseProject(filePath: string): Project {
   if (!cover.startsWith("/")) fail(file, "cover must start with /");
   assertPublicFile(cover, file);
 
+  const iconInput = optionalString(data, "icon", file);
+  const icon = iconInput ?? `/projects/${slug}/icon.svg`;
+  if (!icon.startsWith("/")) fail(file, "icon must start with /");
+  assertPublicFile(icon, file);
+
   const gallery = parseGallery(data, file);
   for (const image of gallery) assertPublicFile(image.src, file);
 
@@ -133,6 +138,7 @@ function parseProject(filePath: string): Project {
     gallery,
     features: stringList(data, "features", file),
     order: optionalNumber(data, "order", file) ?? 999,
+    icon,
     body: parsed.content.trim(),
   };
 }

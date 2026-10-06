@@ -60,6 +60,8 @@ npm run placeholders
 
 Script ghi đè SVG trong `public/projects/`. Đừng chạy lại sau khi đã thay bằng ảnh thật.
 
+Trang chủ hiện mỗi dự án thành một icon app (squircle) trên thanh dock. Icon nằm ở `public/projects/<slug>/icon.svg` (thiếu thì dùng `cover`). Icon hiện tại và avatar `public/avatar.svg` được tạo bằng `npm run icons`; dự án mới thì thêm màu + glyph trong `scripts/generate-icons.mjs` hoặc đặt một `icon.svg` vuông của riêng bạn. Chữ ký "howlslab" ở cuối trang được sinh bằng `npm run signature`.
+
 ## Liên hệ
 
 Form ở `/contact` không gửi lên server. Nó mở thư nháp `mailto:` tới địa chỉ trong `lib/site.ts` (`contactEmail`). Địa chỉ hiện tại `hello@howlslab.com` là placeholder.

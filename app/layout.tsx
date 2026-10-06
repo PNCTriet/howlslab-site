@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { HideOnHome } from "@/components/site-chrome";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -36,11 +37,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="vi" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider>
-          <SiteHeader />
+          <HideOnHome>
+            <SiteHeader />
+          </HideOnHome>
           <main id="noi-dung" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
-          <SiteFooter />
+          <HideOnHome>
+            <SiteFooter />
+          </HideOnHome>
         </ThemeProvider>
       </body>
     </html>

@@ -1,97 +1,87 @@
-import Link from "next/link";
-import { AppleButton } from "@/components/apple-button";
-import { FeaturedProjects } from "@/components/featured-projects";
-import { ProjectGrid } from "@/components/project-grid";
-import { TextLink } from "@/components/text-link";
-import { getAllProjects, toCard } from "@/lib/projects";
+import Image from "next/image";
+import { CopyEmail } from "@/components/home/copy-email";
+import { HomeFooter } from "@/components/home/home-footer";
+import { ProjectDock, type DockItem } from "@/components/home/project-dock";
+import { Signature } from "@/components/home/signature";
+import { getAllProjects, iconFor, taglineFor } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
   const projects = getAllProjects();
-  const cards = projects.map(toCard);
-  const liveCount = projects.filter((project) => project.status === "live").length;
-  const outdatedCount = projects.length - liveCount;
+  const items: DockItem[] = projects.map((project) => ({
+    slug: project.slug,
+    title: project.title,
+    tagline: taglineFor(project),
+    status: project.status,
+    cover: project.cover,
+    icon: iconFor(project),
+  }));
+  const live = items.filter((item) => item.status === "live");
+  const outdated = items.filter((item) => item.status === "outdated");
 
   return (
-    <>
-      <section className="relative overflow-hidden">
-        <div className="rise mx-auto max-w-[1120px] px-6 pt-16 pb-14 text-center md:pt-24 md:pb-20 lg:pt-28">
-          <p className="text-[14px] font-medium text-ink-secondary md:text-[17px]">
-            Studio sản phẩm · Việt Nam
-          </p>
-          <h1 className="mx-auto mt-4 max-w-[14em] text-balance text-[36px] font-semibold leading-[1.05] tracking-[-0.032em] text-foreground sm:text-[56px] lg:text-[64px]">
-            Những sản phẩm đã làm ra.
+    <div className="home">
+      <section aria-labelledby="home-name" className="mx-auto w-full max-w-[640px] px-6 pt-16 sm:pt-20">
+        <div className="rise">
+          <Image
+            src="/avatar.svg"
+            alt={`${site.founder}, ${site.name}`}
+            width={76}
+            height={76}
+            unoptimized
+            priority
+            className="home-avatar"
+          />
+          <h1
+            id="home-name"
+            className="mt-5 flex items-center gap-2 text-[22px] font-semibold leading-[1.27] tracking-[-0.022em] text-foreground"
+          >
+            <span>
+              {site.founder} <span className="font-normal text-muted-foreground">·</span> {site.name}
+            </span>
+            <span className="online-dot" role="img" aria-label="Đang hoạt động" />
           </h1>
-          <p className="mx-auto mt-6 max-w-[40rem] text-pretty text-[19px] leading-[1.47] text-ink-secondary md:text-[21px]">
-            HOWL LAB là studio của {site.founder} ({site.founderHandle}). Chúng tôi thiết kế và
-            xây phần mềm cho người dùng thật — không gian ảo, thử đồ, nội dung, CRM — rồi để lại
-            một cửa để bạn xem.
-          </p>
-          <ul className="mx-auto mt-8 grid max-w-[520px] grid-cols-3 gap-3 text-left">
-            <li className="howl-card px-4 py-3">
-              <p className="text-[12px] text-muted-foreground">Đang chạy</p>
-              <p className="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-foreground tabular-nums">
-                {liveCount}
-              </p>
-            </li>
-            <li className="howl-card px-4 py-3">
-              <p className="text-[12px] text-muted-foreground">Đã cũ</p>
-              <p className="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-foreground tabular-nums">
-                {outdatedCount}
-              </p>
-            </li>
-            <li className="howl-card px-4 py-3">
-              <p className="text-[12px] text-muted-foreground">Dự án</p>
-              <p className="mt-1 text-[22px] font-semibold tracking-[-0.03em] text-foreground tabular-nums">
-                {projects.length}
-              </p>
-            </li>
-          </ul>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            <AppleButton nativeButton={false} render={<Link href="#du-an" />}>
-              Xem dự án
-            </AppleButton>
-            <TextLink href="/contact">Liên hệ</TextLink>
-          </div>
+          <p className="mt-0.5 text-[17px] leading-[1.41] text-ink-secondary">Founder · Product Builder</p>
+        </div>
+
+        <p className="rise rise-2 mt-7 text-pretty text-[17px] leading-[1.6] tracking-[-0.012em] text-ink-secondary">
+          HOWL LAB là studio nhỏ ở {site.city}, chuyên làm sản phẩm thật cho người dùng thật: không gian
+          ảo để gặp nhau, phòng thử đồ bằng AI, CRM cho văn phòng, và những công cụ vận hành chạy mỗi
+          ngày. Mình đi cùng từ ý tưởng, thiết kế đến lúc sản phẩm lên sóng — rồi để lại một cánh cửa để
+          bạn ghé xem.
+        </p>
+
+        <div className="rise rise-3 mt-4">
+          <CopyEmail email={site.contactEmail} />
         </div>
       </section>
 
-      <div id="du-an">
-        <FeaturedProjects projects={cards} />
-        <ProjectGrid projects={cards} />
+      <section id="du-an" aria-labelledby="apps-heading" className="home-apps rise rise-4">
+        <h2 id="apps-heading" className="eyebrow text-center">
+          Sản phẩm đã làm · <span className="hidden sm:inline">rê chuột để xem, bấm để mở</span>
+          <span className="sm:hidden">chạm để mở</span>
+        </h2>
+
+        <div className="home-docks">
+          <ProjectDock items={live} variant="main" ariaLabel={`Đang chạy, ${live.length} dự án`} />
+          {outdated.length > 0 ? (
+            <ProjectDock
+              items={outdated}
+              variant="muted"
+              label="Đã cũ"
+              ariaLabel={`Đã cũ, ${outdated.length} dự án`}
+            />
+          ) : null}
+        </div>
+      </section>
+
+      <div className="mx-auto w-full max-w-[640px] px-6 pt-14 pb-14 sm:pt-16 sm:pb-16">
+        <div className="mx-auto w-[220px] sm:w-[248px]">
+          <Signature />
+        </div>
       </div>
 
-      <section id="ve-howl" aria-labelledby="about-heading" className="border-t border-border py-16 md:py-24 lg:py-32">
-        <div className="mx-auto grid max-w-[1120px] items-start gap-10 px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-          <div>
-            <h2
-              id="about-heading"
-              className="max-w-[16ch] text-balance text-[32px] font-semibold tracking-[-0.02em] text-foreground md:text-[40px]"
-            >
-              Lab nhỏ. Việc thì làm cho xong.
-            </h2>
-            <p className="mt-6 max-w-[40rem] text-[17px] leading-[1.47] text-ink-secondary md:text-[19px]">
-              HOWL LAB ở Việt Nam, sáng lập bởi {site.founder} ({site.founderHandle}). Phần lớn
-              sản phẩm bắt đầu từ một nhu cầu cụ thể: gặp nhau trong một không gian ảo, thử một
-              món đồ, hoặc theo đơn hàng và hợp đồng trong nội bộ.
-            </p>
-          </div>
-          <div className="howl-card p-8 md:p-10">
-            <p className="text-[12px] font-medium text-muted-foreground">Liên hệ</p>
-            <p className="mt-3 text-[21px] font-semibold tracking-[-0.02em] text-foreground">
-              Muốn xem một bản không còn public?
-            </p>
-            <p className="mt-3 text-[17px] leading-[1.47] text-ink-secondary">
-              Gửi yêu cầu demo. Biểu mẫu chỉ mở email trên máy bạn.
-            </p>
-            <div className="mt-6">
-              <AppleButton nativeButton={false} render={<Link href="/contact" />}>
-                Yêu cầu demo
-              </AppleButton>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+      <HomeFooter />
+    </div>
   );
 }

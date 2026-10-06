@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { CaseStudyBody } from "@/components/case-study-body";
@@ -7,7 +9,7 @@ import { DemoAction } from "@/components/demo-action";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectImage } from "@/components/project-image";
 import { StatusLabel } from "@/components/status-label";
-import { getAllProjects, getProject, toCard } from "@/lib/projects";
+import { getAllProjects, getProject, iconFor, toCard } from "@/lib/projects";
 import { statusLabel } from "@/lib/site";
 import type { Project } from "@/lib/types";
 
@@ -64,6 +66,18 @@ export default async function ProjectPage({
       </div>
 
       <header className="mx-auto max-w-[760px] px-6 pt-10 pb-12 text-center md:pt-16">
+        {/* Shares its name with the home dock icon, so the icon morphs into place. */}
+        <ViewTransition name={`app-icon-${project.slug}`} share="app-icon-morph" default="none">
+          <Image
+            src={iconFor(project)}
+            alt=""
+            width={88}
+            height={88}
+            unoptimized
+            priority
+            className="detail-icon mx-auto mb-6 block size-[88px]"
+          />
+        </ViewTransition>
         <StatusLabel status={project.status} />
         <h1 className="mt-4 text-balance text-[40px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[56px]">
           {project.title}

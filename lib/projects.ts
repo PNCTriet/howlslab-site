@@ -168,3 +168,16 @@ export function toCard(project: Project): ProjectCardData {
     featured: project.featured,
   };
 }
+
+/** Squircle app icon for the home dock and the detail header (falls back to the cover). */
+export function iconFor(project: Pick<Project, "slug" | "cover">) {
+  const src = `/projects/${project.slug}/icon.svg`;
+  const absolute = path.join(process.cwd(), "public", src.replace(/^\//, ""));
+  return fs.existsSync(absolute) ? src : project.cover;
+}
+
+/** First sentence of the summary — fits one line in the dock preview window. */
+export function taglineFor(project: Pick<Project, "summary">) {
+  const [first] = project.summary.split(/(?<=[.!?])\s+/);
+  return first ?? project.summary;
+}

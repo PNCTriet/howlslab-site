@@ -11,6 +11,8 @@ export const site = {
    * The contact form never posts to a server — it only opens a mailto draft.
    */
   contactEmail: "hello@howlslab.com",
+  githubUrl: "https://github.com/PNCTriet",
+  city: "Sài Gòn",
 } as const;
 
 export function contactHref(slug?: string) {

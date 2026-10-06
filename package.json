@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev --port 3847 --hostname 127.0.0.1",
     "placeholders": "node scripts/generate-placeholders.mjs",
+    "icons": "node scripts/generate-icons.mjs",
+    "signature": "node scripts/generate-signature.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

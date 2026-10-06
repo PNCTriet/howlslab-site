@@ -1,0 +1,48 @@
+---
+title: Bán vé live show
+slug: ban-ve-live-show
+status: outdated
+summary: "Nền tảng bán vé trọn gói cho một live show. Gồm website sự kiện và mua vé, CRM cho ban tổ chức, và backend xử lý đơn, thanh toán, vé QR, check-in và hóa đơn. Tên show không hiện trên trang này."
+tags:
+  - Vé
+  - CRM
+tech:
+  - Next.js
+  - React 19
+  - Tailwind CSS v4
+  - Supabase
+  - Resend
+  - SePay
+  - NestJS 11
+  - Prisma 6
+  - Bull
+  - Redis
+client: "Ớt Cay Xè"
+hideClient: true
+featured: false
+order: 7
+cover: /projects/ban-ve-live-show/cover.svg
+gallery:
+  - src: /projects/ban-ve-live-show/01.svg
+    alt: Minh hoạ trừu tượng vé sự kiện
+    caption: Vé
+  - src: /projects/ban-ve-live-show/02.svg
+    alt: Minh hoạ trừu tượng bước thanh toán
+    caption: Thanh toán
+  - src: /projects/ban-ve-live-show/03.svg
+    alt: Minh hoạ trừu tượng bảng vận hành vé
+    caption: Vận hành
+features:
+  - "Landing sự kiện hai ngôn ngữ, giao diện tối, line-up, câu hỏi thường gặp và logo nhà tài trợ"
+  - "Chọn ghế trên sơ đồ theo hạng vé, đếm ngược giữ chỗ, đăng nhập"
+  - "Thanh toán chuyển khoản QR, đối soát qua webhook, gửi vé điện tử có QR qua email"
+  - "Check-in bằng quét QR và thống kê check-in"
+  - "CRM ban tổ chức: sự kiện, vé, đơn, thanh toán, coupon, email hàng loạt, tổ chức và người dùng"
+  - "Backend nhiều tenant, hàng đợi, tệp PDF và QR, module hóa đơn"
+---
+
+Ba phần chạy cùng nhau: trang cho khán giả, cổng cho ban tổ chức, và backend đơn hàng.
+
+Đối soát chuyển khoản trong code đi qua webhook SePay. Các cổng khác không có SDK trong gói phụ thuộc thì không nêu ở đây.
+
+Số vé, số đêm diễn và ảnh sự kiện: Sắp cập nhật.

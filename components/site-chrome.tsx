@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 
-/** The dock draft has its own footer, so the global chrome steps aside there. */
+/** Homepage and the dock draft bring their own chrome, so the global header and footer step aside. */
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/demo/dock") return null;
+  if (pathname === "/" || pathname === "/demo/dock") return null;
   return children;
 }

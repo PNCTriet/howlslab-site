@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useLanguage } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 
 function subscribe() {
@@ -11,6 +12,7 @@ function subscribe() {
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
   if (!mounted) {
@@ -18,7 +20,7 @@ export function ThemeToggle() {
   }
 
   const dark = resolvedTheme === "dark";
-  const label = dark ? "Bật giao diện sáng" : "Bật giao diện tối";
+  const label = dark ? t.themeLight : t.themeDark;
 
   return (
     <Button

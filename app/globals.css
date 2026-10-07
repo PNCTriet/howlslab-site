@@ -240,8 +240,50 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .rise {
-    animation: howl-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    /* backwards: no lingering transform once settled, so fixed children behave. */
+    animation: howl-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
+
+  .rise-2 {
+    animation-delay: 0.08s;
+  }
+
+  .rise-3 {
+    animation-delay: 0.16s;
+  }
+
+  .rise-4 {
+    animation-delay: 0.26s;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lab-card {
+  background: var(--card);
+  border-radius: 22px;
+  box-shadow: var(--shadow-card);
+  outline: 1px solid var(--hairline);
+}
+
+#product,
+#how,
+#targets,
+#work,
+#about,
+#contact {
+  scroll-margin-top: 5.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -25,5 +25,7 @@ export type Project = ProjectCardData & {
   gallery: GalleryImage[];
   features: string[];
   order: number;
+  /** Resolved public path, from frontmatter or `/projects/<slug>/icon.svg`. */
+  icon: string;
   body: string;
 };

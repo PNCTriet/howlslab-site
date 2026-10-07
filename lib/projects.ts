@@ -111,6 +111,11 @@ function parseProject(filePath: string): Project {
   if (!cover.startsWith("/")) fail(file, "cover must start with /");
   assertPublicFile(cover, file);
 
+  const iconInput = optionalString(data, "icon", file);
+  const icon = iconInput ?? `/projects/${slug}/icon.svg`;
+  if (!icon.startsWith("/")) fail(file, "icon must start with /");
+  assertPublicFile(icon, file);
+
   const gallery = parseGallery(data, file);
   for (const image of gallery) assertPublicFile(image.src, file);
 
@@ -133,6 +138,7 @@ function parseProject(filePath: string): Project {
     gallery,
     features: stringList(data, "features", file),
     order: optionalNumber(data, "order", file) ?? 999,
+    icon,
     body: parsed.content.trim(),
   };
 }
@@ -167,4 +173,17 @@ export function toCard(project: Project): ProjectCardData {
     summary: project.summary,
     featured: project.featured,
   };
+}
+
+/** Squircle app icon for the home dock (falls back to the cover). */
+export function iconFor(project: Pick<Project, "slug" | "cover">) {
+  const src = `/projects/${project.slug}/icon.svg`;
+  const absolute = path.join(process.cwd(), "public", src.replace(/^\//, ""));
+  return fs.existsSync(absolute) ? src : project.cover;
+}
+
+/** First sentence of the summary — fits one line in the dock preview window. */
+export function taglineFor(project: Pick<Project, "summary">) {
+  const [first] = project.summary.split(/(?<=[.!?])\s+/);
+  return first ?? project.summary;
 }

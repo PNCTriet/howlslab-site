@@ -1,28 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useLanguage } from "@/components/language-provider";
 
 const linkClass =
-  "rounded-full px-2 py-2 text-[13px] text-foreground/80 transition-colors hover:text-foreground sm:px-3 sm:text-[14px]";
+  "rounded-full px-2 py-2 text-[13px] text-foreground/80 transition-colors hover:text-foreground sm:px-2.5 sm:text-[14px]";
 
 export function NavLinks() {
-  const pathname = usePathname();
-  const onContact = pathname === "/contact";
+  const { t } = useLanguage();
+  const links = [
+    { href: "/#product", label: t.navProduct },
+    { href: "/#targets", label: t.navTargets },
+    { href: "/#work", label: t.navWork },
+    { href: "/#contact", label: t.navContact },
+  ];
 
   return (
     <>
-      <Link href="/#du-an" className={linkClass}>
-        Dự án
-      </Link>
-      <Link
-        href="/contact"
-        className={cn(linkClass, onContact && "font-medium text-foreground")}
-        aria-current={onContact ? "page" : undefined}
-      >
-        Liên hệ
-      </Link>
+      {links.map((link) => (
+        <Link key={link.href} href={link.href} className={linkClass}>
+          {link.label}
+        </Link>
+      ))}
     </>
   );
 }

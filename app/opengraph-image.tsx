@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "HOWL LAB";
+export const alt = "Fitting Lab by HOWLSLAB";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -18,17 +18,21 @@ export default function OpenGraphImage() {
           padding: "80px",
         }}
       >
-        <div style={{ fontSize: 28, color: "#6e6e73" }}>howlslab.com</div>
+        <div style={{ display: "flex", fontSize: 28, color: "#6e6e73" }}>HOWLSLAB</div>
         <div
           style={{
-            fontSize: 92,
+            display: "flex",
+            fontSize: 84,
             fontWeight: 600,
             color: "#1d1d1f",
             letterSpacing: -2,
             marginTop: 12,
           }}
         >
-          HOWL LAB
+          Fitting Lab
+        </div>
+        <div style={{ display: "flex", fontSize: 28, color: "#6e6e73", marginTop: 16 }}>
+          AI virtual try-on for fashion brands
         </div>
       </div>
     ),

@@ -1,55 +1,49 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/components/language-provider";
 import { site } from "@/lib/site";
 
 export function SiteFooter() {
+  const { t } = useLanguage();
+
   return (
     <footer className="border-t border-black/[0.06] dark:border-white/10">
-      <div className="mx-auto grid max-w-[1120px] gap-10 px-6 py-12 md:grid-cols-3 md:py-16">
+      <div className="mx-auto flex max-w-[1120px] flex-col gap-8 px-5 py-12 sm:px-6 md:flex-row md:items-start md:justify-between">
         <div>
-          <p className="text-[15px] font-semibold tracking-[-0.02em] text-foreground">HOWL LAB</p>
-          <p className="mt-3 max-w-[28ch] text-[12px] leading-[1.4] text-muted-foreground">
-            Studio sản phẩm của {site.founder} ({site.founderHandle}), tại Việt Nam.
-          </p>
+          <p className="text-[15px] font-semibold tracking-[-0.02em] text-foreground">HOWLSLAB</p>
+          <p className="mt-2 max-w-[32ch] text-[13px] leading-[1.45] text-muted-foreground">{t.footerBlurb}</p>
+          <a className="mt-3 inline-block text-[13px] text-link hover:underline" href={`mailto:${site.contactEmail}`}>
+            {site.contactEmail}
+          </a>
         </div>
-        <nav aria-label="Chân trang">
-          <p className="text-[12px] font-medium text-foreground">Điều hướng</p>
-          <ul className="mt-3 space-y-2 text-[12px]">
+        <nav aria-label={t.footerNav}>
+          <ul className="space-y-2 text-[13px]">
             <li>
-              <Link href="/" className="text-link hover:underline">
-                Trang chủ
+              <Link href="/#product" className="text-link hover:underline">
+                {t.navProduct}
               </Link>
             </li>
             <li>
-              <Link href="/#du-an" className="text-link hover:underline">
-                Dự án
+              <Link href="/#work" className="text-link hover:underline">
+                {t.navWork}
               </Link>
             </li>
             <li>
               <Link href="/contact" className="text-link hover:underline">
-                Liên hệ
+                {t.contactPage}
+              </Link>
+            </li>
+            <li>
+              <Link href="/demo" className="text-link hover:underline">
+                {t.earlier}
               </Link>
             </li>
           </ul>
         </nav>
-        <div>
-          <p className="text-[12px] font-medium text-foreground">Liên hệ</p>
-          <ul className="mt-3 space-y-2 text-[12px]">
-            <li>
-              <a className="text-link hover:underline" href={`mailto:${site.contactEmail}`}>
-                {site.contactEmail}
-              </a>
-            </li>
-            <li>
-              <Link href="/contact" className="text-link hover:underline">
-                Yêu cầu demo
-              </Link>
-            </li>
-          </ul>
-        </div>
       </div>
-      <div className="mx-auto flex max-w-[1120px] flex-col gap-2 border-t border-border px-6 py-6 text-[12px] leading-[1.4] text-muted-foreground md:flex-row md:items-center md:justify-between">
-        <p>© {new Date().getFullYear()} HOWL LAB</p>
-        <p>Ảnh minh hoạ. Ảnh chụp sản phẩm — Sắp cập nhật.</p>
+      <div className="mx-auto max-w-[1120px] border-t border-border px-5 py-6 sm:px-6">
+        <p className="text-[12px] leading-[1.4] text-muted-foreground">© 2026 HOWLSLAB · Ho Chi Minh City</p>
       </div>
     </footer>
   );

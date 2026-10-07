@@ -2,15 +2,14 @@ export const site = {
   name: "HOWL LAB",
   url: "https://howlslab.com",
   locale: "vi_VN",
-  founder: "Triết",
-  founderHandle: "Howls",
   description:
-    "HOWL LAB là studio sản phẩm nhỏ của Triết (Howls) tại Việt Nam. Những sản phẩm đã làm ra — đang chạy, hoặc đã khép một vòng đời.",
+    "HOWL LAB là studio sản phẩm nhỏ tại Việt Nam. Những sản phẩm đã làm ra — đang chạy, hoặc đã khép một vòng đời.",
   /**
-   * Placeholder inbox. Replace with the studio's real address before launch.
+   * Inbox that actually receives mail.
    * The contact form never posts to a server — it only opens a mailto draft.
    */
-  contactEmail: "hello@howlslab.com",
+  contactEmail: "howls.sslab@gmail.com",
+  city: "Sài Gòn",
 } as const;
 
 export function contactHref(slug?: string) {

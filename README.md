@@ -1,6 +1,6 @@
 # HOWL LAB
 
-Portfolio tĩnh của HOWL LAB — studio sản phẩm của Triết (Howls). Mỗi dự án là một trang case study. Site build bằng Next.js (App Router), TypeScript, Tailwind, và file MDX. Không có backend: trang được sinh tĩnh (SSG) và deploy được lên Vercel.
+Portfolio tĩnh của HOWL LAB — studio sản phẩm nhỏ tại Việt Nam. Mỗi dự án là một trang case study. Site build bằng Next.js (App Router), TypeScript, Tailwind, và file MDX. Không có backend: trang được sinh tĩnh (SSG) và deploy được lên Vercel.
 
 ## Chạy local
 

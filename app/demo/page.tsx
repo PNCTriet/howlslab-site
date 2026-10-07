@@ -4,7 +4,6 @@ import { FeaturedProjects } from "@/components/featured-projects";
 import { ProjectGrid } from "@/components/project-grid";
 import { TextLink } from "@/components/text-link";
 import { getAllProjects, toCard } from "@/lib/projects";
-import { site } from "@/lib/site";
 
 export default function HomePage() {
   const projects = getAllProjects();
@@ -23,7 +22,7 @@ export default function HomePage() {
             Những sản phẩm đã làm ra.
           </h1>
           <p className="mx-auto mt-6 max-w-[40rem] text-pretty text-[19px] leading-[1.47] text-ink-secondary md:text-[21px]">
-            HOWL LAB là studio của {site.founder} ({site.founderHandle}). Chúng tôi thiết kế và
+            HOWL LAB là studio sản phẩm nhỏ tại Việt Nam. Chúng tôi thiết kế và
             xây phần mềm cho người dùng thật — không gian ảo, thử đồ, nội dung, CRM — rồi để lại
             một cửa để bạn xem.
           </p>
@@ -71,7 +70,7 @@ export default function HomePage() {
               Lab nhỏ. Việc thì làm cho xong.
             </h2>
             <p className="mt-6 max-w-[40rem] text-[17px] leading-[1.47] text-ink-secondary md:text-[19px]">
-              HOWL LAB ở Việt Nam, sáng lập bởi {site.founder} ({site.founderHandle}). Phần lớn
+              HOWL LAB ở Việt Nam. Phần lớn
               sản phẩm bắt đầu từ một nhu cầu cụ thể: gặp nhau trong một không gian ảo, thử một
               món đồ, hoặc theo đơn hàng và hợp đồng trong nội bộ.
             </p>

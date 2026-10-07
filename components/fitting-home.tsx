@@ -6,7 +6,7 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 import { DeviceShowcase } from "@/components/home-proposal/devices";
 import { hand } from "@/components/home-proposal/fonts";
-import { LoopArrow, Marker, Pill, Sel, Squiggle } from "@/components/home-proposal/ornaments";
+import { LoopArrow, Marker, Sel, Squiggle } from "@/components/home-proposal/ornaments";
 import { ALSO_BUILT, BOOK_CALL_HREF, TARGETS, TRY_ON_URL } from "@/lib/home-copy";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -166,11 +166,11 @@ export function FittingHome() {
   const targetsTitle =
     lang === "en" ? (
       <>
-        Roadmap & <Pill invert>pilot targets</Pill>.
+        Roadmap & <Marker tone="yellow">pilot targets</Marker>.
       </>
     ) : (
       <>
-        Lộ trình và <Pill invert>mục tiêu pilot</Pill>.
+        Lộ trình và <Marker tone="yellow">mục tiêu pilot</Marker>.
       </>
     );
   const aboutTitle =
@@ -218,7 +218,13 @@ export function FittingHome() {
           {t.skip}
         </a>
         <div className="pv-glass mx-auto flex h-12 max-w-[760px] items-center gap-3 rounded-full pr-1.5 pl-5">
-          <Link href="/" className="shrink-0 text-[15px] font-semibold tracking-[-0.2px]">
+          <Link href="/" className="flex shrink-0 items-center gap-2 text-[15px] font-semibold tracking-[-0.2px]">
+            <span
+              aria-hidden="true"
+              className="flex size-7 items-center justify-center rounded-[4px] bg-black text-[13px] font-semibold text-white"
+            >
+              H
+            </span>
             HOWLSLAB
           </Link>
           <span aria-hidden className="hidden h-4 w-px shrink-0 bg-foreground/15 sm:block" />
@@ -244,9 +250,14 @@ export function FittingHome() {
         <section data-scene="pin" className="relative h-[140svh]">
           <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden px-5 pt-16 pb-8">
             <div className="pv-hero-stage w-full max-w-[1240px] text-center">
-              <div className="pv-in pv-brand">
-                <span aria-hidden className="pv-brand-icon" />
-                <span className="pv-hand pv-brand-word">HOWLSLAB</span>
+              <div className="pv-in inline-flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="flex size-11 items-center justify-center rounded-[6px] bg-black text-[18px] font-semibold text-white"
+                >
+                  H
+                </span>
+                <span className="pv-hand text-[32px] leading-none text-foreground">HOWLSLAB</span>
               </div>
               <p className="pv-eyebrow pv-in mt-7 text-primary" style={{ "--d": 1 } as React.CSSProperties}>
                 {t.eyebrow}
@@ -282,7 +293,7 @@ export function FittingHome() {
                 <span aria-hidden>·</span>
                 <span>2025</span>
                 <span aria-hidden>·</span>
-                <span>Triết · Đông</span>
+                <span>Ho Chi Minh City</span>
               </p>
             </div>
             <ArrowDown
@@ -360,25 +371,25 @@ export function FittingHome() {
           </div>
         </section>
 
-        <section id="targets" className="relative z-10 bg-[var(--pv-dark)] px-5 py-24 text-white sm:py-32">
+        <section id="targets" className="relative z-10 bg-[var(--pv-tile)] px-5 py-24 text-foreground sm:py-32">
           <div className="mx-auto max-w-[1180px]">
             <div className="text-center">
-              <p data-reveal className="pv-eyebrow text-[#2997ff]">
+              <p data-reveal className="pv-eyebrow text-primary">
                 {t.targetsKicker}
               </p>
               <h2 data-reveal style={{ "--d": 1 } as React.CSSProperties} className="pv-title mt-3">
                 {targetsTitle}
               </h2>
-              <p data-reveal style={{ "--d": 2 } as React.CSSProperties} className="pv-lead mx-auto mt-4 max-w-[36rem] text-[#a1a1a6]">
+              <p data-reveal style={{ "--d": 2 } as React.CSSProperties} className="pv-lead mx-auto mt-4 max-w-[36rem] text-muted-foreground">
                 {t.targetsIntro}
               </p>
             </div>
 
             <div data-scene="view" className="relative mt-16 sm:mt-24">
-              <div aria-hidden className="absolute top-[7px] right-0 left-0 hidden h-[2px] rounded-full bg-white/15 lg:block">
+              <div aria-hidden className="absolute top-[7px] right-0 left-0 hidden h-[2px] rounded-full bg-black/10 lg:block">
                 <div className="pv-fill-x h-full rounded-full bg-[#2997ff]" />
               </div>
-              <div aria-hidden className="absolute top-2 bottom-2 left-[7px] w-[2px] rounded-full bg-white/15 lg:hidden">
+              <div aria-hidden className="absolute top-2 bottom-2 left-[7px] w-[2px] rounded-full bg-black/10 lg:hidden">
                 <div className="pv-fill-y h-full w-full rounded-full bg-[#2997ff]" />
               </div>
               <ol
@@ -387,13 +398,13 @@ export function FittingHome() {
               >
                 {TARGETS.map((item, i) => (
                   <li key={item.text} data-reveal style={{ "--d": i } as React.CSSProperties} className="relative pl-10 lg:pt-12 lg:pl-0">
-                    <span aria-hidden className="absolute top-0.5 left-0 size-4 rounded-full border-2 border-[#2997ff] bg-[var(--pv-dark)] lg:top-0" />
-                    <article className="rounded-[28px] bg-white/[0.06] p-6 sm:p-8">
+                    <span aria-hidden className="absolute top-0.5 left-0 size-4 rounded-full border-2 border-[#2997ff] bg-[var(--pv-tile)] lg:top-0" />
+                    <article className="rounded-[28px] bg-[var(--pv-raised)] p-6 sm:p-8">
                       <div className="flex items-center justify-between gap-3">
-                        <span className="inline-flex rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold tracking-[0.08em] text-black uppercase">
+                        <span className="inline-flex rounded-full bg-black px-2.5 py-1 text-[11px] font-semibold tracking-[0.08em] text-white uppercase">
                           {t.targetBadge}
                         </span>
-                        <span className="text-[13px] font-semibold text-[#2997ff] tabular">{item.date}</span>
+                        <span className="text-[13px] font-semibold text-primary tabular">{item.date}</span>
                       </div>
                       <p className="pv-card-title mt-6 text-balance">{item.text}</p>
                     </article>
@@ -401,7 +412,7 @@ export function FittingHome() {
                 ))}
               </ol>
             </div>
-            <p data-reveal className="mt-8 text-center text-[15px] text-[#a1a1a6]">
+            <p data-reveal className="mt-8 text-center text-[15px] text-muted-foreground">
               {t.targetsNote}
             </p>
           </div>

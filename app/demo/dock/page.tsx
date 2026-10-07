@@ -25,7 +25,7 @@ export default function DockHomePage() {
         <div className="rise">
           <Image
             src="/avatar.svg"
-            alt={`${site.founder}, ${site.name}`}
+            alt={site.name}
             width={76}
             height={76}
             unoptimized
@@ -37,7 +37,7 @@ export default function DockHomePage() {
             className="mt-5 flex items-center gap-2 text-[22px] font-semibold leading-[1.27] tracking-[-0.022em] text-foreground"
           >
             <span>
-              {site.founder} <span className="font-normal text-muted-foreground">·</span> {site.name}
+              {site.name}
             </span>
             <span className="online-dot" role="img" aria-label="Đang hoạt động" />
           </h1>

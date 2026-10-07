@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { LanguageToggle } from "@/components/language-toggle";
 import { NavLinks } from "@/components/nav-links";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useLanguage } from "@/components/language-provider";
 
 export function SiteHeader() {
@@ -32,7 +31,6 @@ export function SiteHeader() {
         </nav>
         <div className="order-2 flex items-center gap-1 lg:order-3">
           <LanguageToggle />
-          <ThemeToggle />
         </div>
       </div>
     </header>

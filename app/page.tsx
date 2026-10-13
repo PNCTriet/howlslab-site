@@ -1,6 +1,5 @@
-import { FittingHome } from "@/components/fitting-home";
-import "@/components/home-proposal/proposal.css";
+import { DemoShowcase } from "@/components/demo-showcase/demo-showcase";
 
 export default function HomePage() {
-  return <FittingHome />;
+  return <DemoShowcase />;
 }

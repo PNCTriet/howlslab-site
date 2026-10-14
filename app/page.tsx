@@ -1,5 +1,5 @@
-import { DemoShowcase } from "@/components/demo-showcase/demo-showcase";
+import { PortfolioHome } from "@/components/portfolio-home";
 
 export default function HomePage() {
-  return <DemoShowcase />;
+  return <PortfolioHome />;
 }

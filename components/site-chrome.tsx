@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 
-/** Homepage and the dock draft bring their own chrome, so the global header and footer step aside. */
+/** The dock and Fitting Lab drafts bring their own chrome, so the global header and footer step aside. */
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/" || pathname === "/demo" || pathname === "/demo/dock") return null;
+  if (pathname === "/demo/dock" || pathname === "/demo/fitting") return null;
   return children;
 }

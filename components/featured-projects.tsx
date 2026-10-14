@@ -3,6 +3,8 @@ import { AppleButton } from "@/components/apple-button";
 import { DemoAction } from "@/components/demo-action";
 import { ProjectImage } from "@/components/project-image";
 import { StatusLabel } from "@/components/status-label";
+import { DemoLink, DemoMockup } from "@/components/demo-mockup";
+import { demoForProject } from "@/lib/demo-projects";
 import { coverAlt } from "@/lib/site";
 import type { ProjectCardData } from "@/lib/types";
 
@@ -42,6 +44,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectCardData[] }) 
 }
 
 function FeaturedLead({ project }: { project: ProjectCardData }) {
+  const demo = demoForProject(project.slug);
   return (
     <article className="howl-card overflow-hidden">
       <div className="grid lg:grid-cols-2">
@@ -62,16 +65,20 @@ function FeaturedLead({ project }: { project: ProjectCardData }) {
             >
               Tìm hiểu thêm
             </AppleButton>
-            <DemoAction project={project} />
+            {demo ? <DemoLink demo={demo} /> : <DemoAction project={project} />}
           </div>
         </div>
         <div className="relative min-h-[240px] lg:min-h-[520px]">
-          <ProjectImage
-            src={project.cover}
-            alt={coverAlt(project.title)}
-            sizes="(min-width: 1024px) 560px, 100vw"
-            priority
-          />
+          {demo?.hasMockups ? (
+            <DemoMockup demo={demo} priority />
+          ) : (
+            <ProjectImage
+              src={project.cover}
+              alt={coverAlt(project.title)}
+              sizes="(min-width: 1024px) 560px, 100vw"
+              priority
+            />
+          )}
         </div>
       </div>
     </article>
@@ -79,6 +86,7 @@ function FeaturedLead({ project }: { project: ProjectCardData }) {
 }
 
 function FeaturedTile({ project }: { project: ProjectCardData }) {
+  const demo = demoForProject(project.slug);
   return (
     <article className="howl-card grid h-full overflow-hidden sm:grid-cols-2">
       <div className="flex flex-col justify-center p-6 md:p-8">
@@ -92,15 +100,19 @@ function FeaturedTile({ project }: { project: ProjectCardData }) {
           {project.summary}
         </p>
         <div className="mt-6">
-          <DemoAction project={project} />
+          {demo ? <DemoLink demo={demo} /> : <DemoAction project={project} />}
         </div>
       </div>
       <div className="relative min-h-[200px]">
-        <ProjectImage
-          src={project.cover}
-          alt={coverAlt(project.title)}
-          sizes="(min-width: 1024px) 280px, 100vw"
-        />
+        {demo?.hasMockups ? (
+          <DemoMockup demo={demo} />
+        ) : (
+          <ProjectImage
+            src={project.cover}
+            alt={coverAlt(project.title)}
+            sizes="(min-width: 1024px) 280px, 100vw"
+          />
+        )}
       </div>
     </article>
   );

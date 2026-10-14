@@ -3,13 +3,14 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Homepage drafts",
-  description: "HOWLSLAB demo showcase and earlier homepage drafts.",
+  description: "Earlier HOWLSLAB homepages, kept reachable.",
 };
 
 const links = [
-  { href: "/demo", label: "Demos" },
+  { href: "/demo", label: "Portfolio" },
   { href: "/demo/grid", label: "Icon grid" },
   { href: "/demo/dock", label: "Dock" },
+  { href: "/demo/fitting", label: "Fitting Lab" },
 ];
 
 export default function DemoLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +25,7 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
             </Link>
           ))}
           <Link href="/" className="text-muted-foreground hover:text-foreground hover:underline sm:ml-auto">
-            Home
+            Fitting Lab
           </Link>
         </div>
       </nav>

@@ -1,5 +1,7 @@
 export type DemoProject = {
   slug: string;
+  /** Matching entry in content/projects, when the demo belongs to a portfolio project. */
+  projectSlug?: string;
   name: string;
   url?: string;
   /** Mockups live in /public/demos/{slug}-macbook.webp and -iphone.webp. */
@@ -11,6 +13,7 @@ export type DemoProject = {
 export const DEMO_PROJECTS: DemoProject[] = [
   {
     slug: "tryon",
+    projectSlug: "fitting-lab",
     name: "Fitting Lab",
     url: "https://tryon.howlslab.com",
     hasMockups: true,
@@ -67,6 +70,7 @@ export const DEMO_PROJECTS: DemoProject[] = [
   },
   {
     slug: "vivis",
+    projectSlug: "virtual-visit",
     name: "Vivis",
     url: "https://vivis.howlslab.com",
     hasMockups: false,
@@ -90,22 +94,10 @@ export const DEMO_PROJECTS: DemoProject[] = [
 ];
 
 export const DEMO_COPY = {
-  en: {
-    eyebrow: "Howls Lab · Ho Chi Minh City · since 2025",
-    title: "Things we built. Try them.",
-    lead: "Live demos from HOWLSLAB, shown on desktop and mobile.",
-    open: "Open demo",
-    soon: "Demo coming soon",
-    contact: "Contact",
-    footer: "© HOWLSLAB · Founded 2025 in Ho Chi Minh City",
-  },
-  vi: {
-    eyebrow: "Howls Lab · TP. Hồ Chí Minh · từ 2025",
-    title: "Những gì chúng tôi đã làm. Mời bạn thử.",
-    lead: "Các bản demo đang chạy của HOWLSLAB, trên máy tính và điện thoại.",
-    open: "Mở demo",
-    soon: "Demo sắp ra mắt",
-    contact: "Liên hệ",
-    footer: "© HOWLSLAB · Thành lập 2025 tại TP. Hồ Chí Minh",
-  },
+  en: { open: "Open demo", soon: "Demo coming soon", opensNewTab: "opens in a new tab" },
+  vi: { open: "Mở demo", soon: "Demo sắp ra mắt", opensNewTab: "mở trong tab mới" },
 } as const;
+
+export function demoForProject(projectSlug: string) {
+  return DEMO_PROJECTS.find((demo) => demo.projectSlug === projectSlug);
+}

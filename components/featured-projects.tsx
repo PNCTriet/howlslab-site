@@ -77,7 +77,7 @@ function FeaturedLead({ project }: { project: ProjectCardData }) {
         <div className="relative min-h-[240px] lg:min-h-[520px]">
           <ProjectImage
             src={project.cover}
-            alt={p.coverAlt(copy.title)}
+            alt={p.coverAlt(copy.title, project.cover.endsWith(".webp"))}
             sizes="(min-width: 1024px) 560px, 100vw"
             priority
           />
@@ -108,7 +108,7 @@ function FeaturedTile({ project }: { project: ProjectCardData }) {
       <div className="relative min-h-[200px]">
         <ProjectImage
           src={project.cover}
-          alt={p.coverAlt(copy.title)}
+          alt={p.coverAlt(copy.title, project.cover.endsWith(".webp"))}
           sizes="(min-width: 1024px) 280px, 100vw"
         />
       </div>

@@ -43,7 +43,10 @@ export const portfolioCopy = {
     opensNewTab: "opens in a new tab",
     statusLive: "Live",
     statusOlder: "Older",
-    coverAlt: (title: string) => `Abstract cover for ${title}. Not a product photograph.`,
+    coverAlt: (title: string, screenshot = false) =>
+      screenshot
+        ? `Screenshot of the ${title} interface.`
+        : `Abstract cover for ${title}. Not a product photograph.`,
     macAlt: (name: string) => `${name} on MacBook Pro`,
     phoneAlt: (name: string) => `${name} on iPhone`,
     count: (n: number) => (n === 1 ? "1 project" : `${n} projects`),
@@ -142,7 +145,10 @@ export const portfolioCopy = {
     opensNewTab: "mở trong tab mới",
     statusLive: "Đang chạy",
     statusOlder: "Đã cũ",
-    coverAlt: (title: string) => `Minh hoạ trừu tượng cho ${title}. Chưa phải ảnh chụp sản phẩm.`,
+    coverAlt: (title: string, screenshot = false) =>
+      screenshot
+        ? `Ảnh chụp giao diện ${title}.`
+        : `Minh hoạ trừu tượng cho ${title}. Chưa phải ảnh chụp sản phẩm.`,
     macAlt: (name: string) => `${name} trên MacBook Pro`,
     phoneAlt: (name: string) => `${name} trên iPhone`,
     count: (n: number) => `${n} dự án`,

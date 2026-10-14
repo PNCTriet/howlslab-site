@@ -17,9 +17,15 @@ export function contactHref(slug?: string) {
   return `/contact?project=${encodeURIComponent(slug)}`;
 }
 
-export function coverAlt(title: string, lang: "en" | "vi" = "en") {
-  if (lang === "vi") return `Minh hoạ trừu tượng cho ${title}. Chưa phải ảnh chụp sản phẩm.`;
-  return `Abstract cover for ${title}. Not a product photograph.`;
+export function coverAlt(title: string, lang: "en" | "vi" = "en", screenshot = false) {
+  if (lang === "vi") {
+    return screenshot
+      ? `Ảnh chụp giao diện ${title}.`
+      : `Minh hoạ trừu tượng cho ${title}. Chưa phải ảnh chụp sản phẩm.`;
+  }
+  return screenshot
+    ? `Screenshot of the ${title} interface.`
+    : `Abstract cover for ${title}. Not a product photograph.`;
 }
 
 export function statusLabel(status: "live" | "outdated", lang: "en" | "vi" = "en") {

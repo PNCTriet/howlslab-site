@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
         <div className="relative aspect-[16/9] overflow-hidden bg-black/[0.03] dark:bg-white/[0.04]">
           <ProjectImage
             src={project.cover}
-            alt={p.coverAlt(title)}
+            alt={p.coverAlt(title, project.cover.endsWith(".webp"))}
             sizes="(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw"
             className="motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-spring motion-safe:group-hover:scale-[1.03]"
           />

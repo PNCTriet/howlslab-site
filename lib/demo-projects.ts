@@ -36,6 +36,7 @@ export const DEMO_PROJECTS: DemoProject[] = [
   },
   {
     slug: "takico",
+    projectSlug: "takico",
     name: "Takico",
     url: "https://takico.vercel.app",
     hasMockups: true,
@@ -44,6 +45,7 @@ export const DEMO_PROJECTS: DemoProject[] = [
   },
   {
     slug: "mblife-photobooth",
+    projectSlug: "mb-life-photobooth",
     name: "MB Life Photobooth",
     url: "https://mb-life-demo.vercel.app",
     hasMockups: true,
@@ -52,6 +54,7 @@ export const DEMO_PROJECTS: DemoProject[] = [
   },
   {
     slug: "mblife-luckydraw",
+    projectSlug: "mb-life-lucky-draw",
     name: "MB Life Lucky Draw",
     url: "https://mb-luicky-draw-psi.vercel.app",
     hasMockups: true,
@@ -60,6 +63,7 @@ export const DEMO_PROJECTS: DemoProject[] = [
   },
   {
     slug: "pendiasure",
+    projectSlug: "pendiasure",
     name: "Pendiasure",
     url: "https://trinity-abbott.vercel.app",
     hasMockups: true,
@@ -68,6 +72,7 @@ export const DEMO_PROJECTS: DemoProject[] = [
   },
   {
     slug: "jumpjump",
+    projectSlug: "jump-jump",
     name: "Jump Jump",
     url: "https://micatcher-jump-jump.vercel.app",
     hasMockups: true,

@@ -310,6 +310,77 @@ export const PROJECT_EN: Record<string, ProjectEnglish> = {
     ],
     body: "Virtual Visit is the studio's self-hosted virtual space. A guest enters a name and joins a room on a 2D map, seeing avatars and who is online.\n\nThe app does not depend on ZEP. Without Supabase configuration, it runs a demo on the machine.\n\nCamera and voice are not built. Where it has been used outside the lab, and real demo photos: Coming soon.",
   },
+  takico: {
+    title: "Takico",
+    summary:
+      "A browser game screen. The first page shows four states: waiting, playing, lose, and win.",
+    tags: ["Game"],
+    features: [
+      "Four states on the opening page: waiting, playing, lose, and win",
+      "Play in the browser, with no sign-in step",
+    ],
+    gallery: [],
+    body: "Takico opens on the game screen. A visitor sees four states: waiting, playing, lose, and win.",
+  },
+  "mb-life-photobooth": {
+    title: "MB Life Photobooth",
+    summary:
+      "The opening page of an event photobooth. Three ways in: an iPad employee-code screen, an LED stage screen, and an admin list.",
+    tags: ["Events"],
+    features: [
+      "An opening menu with three links",
+      "An iPad screen for an employee code",
+      "An LED stage screen and an admin list",
+    ],
+    gallery: [],
+    body: "The first page is a dark menu. The three items go to the iPad code screen, the LED screen, and the employee list.",
+  },
+  "mb-life-lucky-draw": {
+    title: "MB Life Lucky Draw",
+    summary: "The opening page of an event lucky draw. Two ways in: an LED screen and an admin page.",
+    tags: ["Events"],
+    features: [
+      "An event title on a dark background",
+      "A button that opens the LED screen",
+      "A button that opens the admin page",
+    ],
+    gallery: [],
+    body: "The first page asks whether to open the LED screen or the admin page. The draw itself sits behind those two links.",
+  },
+  pendiasure: {
+    title: "Pendiasure",
+    summary:
+      "A registration form on the opening page of a seminar. The visitor enters a name or a store name, then confirms.",
+    tags: ["Registration"],
+    features: ["A field for a name or a store name", "A confirm button on the same page"],
+    gallery: [],
+    body: "The landing is a seminar registration form. The visitor fills in a name or a store name and confirms.",
+  },
+  "jump-jump": {
+    title: "Jump Jump",
+    summary:
+      "The waiting screen of a mic-catching jump game. It shows a slogan, and a prompt to press a key or tap to start.",
+    tags: ["Game"],
+    features: [
+      "A waiting screen with a catch-the-mic slogan",
+      "Start with a key or a tap",
+      "Stand, crouch, and jump instructions live in the same demo",
+    ],
+    gallery: [],
+    body: "The demo opens on a waiting screen: catch the mic, catch the moment. A visitor presses a key or taps to start a run.",
+  },
+  "live-puzzle": {
+    title: "Live Puzzle",
+    summary:
+      "The source notes point at the same demo as Jump Jump. That demo has no separate puzzle page or mode.",
+    tags: ["Game"],
+    features: [
+      "No puzzle path on the Jump Jump demo",
+      "The paths /puzzle and /live-puzzle return not found",
+    ],
+    gallery: [],
+    body: "The source lists Live Puzzle on the same repo and the same demo as Jump Jump. That demo is the jump game. It has no puzzle route or mode to open.",
+  },
 };
 
 export function englishProject(slug: string) {

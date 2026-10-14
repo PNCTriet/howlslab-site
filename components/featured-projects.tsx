@@ -1,14 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { AppleButton } from "@/components/apple-button";
 import { DemoAction } from "@/components/demo-action";
 import { ProjectImage } from "@/components/project-image";
 import { StatusLabel } from "@/components/status-label";
-import { DemoLink, DemoMockup } from "@/components/demo-mockup";
+import { DemoLink } from "@/components/demo-mockup";
+import { useLanguage } from "@/components/language-provider";
 import { demoForProject } from "@/lib/demo-projects";
-import { coverAlt } from "@/lib/site";
+import { PROJECT_EN } from "@/lib/project-en";
 import type { ProjectCardData } from "@/lib/types";
 
 export function FeaturedProjects({ projects }: { projects: ProjectCardData[] }) {
+  const { p } = useLanguage();
   const featured = projects.filter((project) => project.featured && project.status === "live");
   const lead = featured[0];
   if (!lead) return null;
@@ -21,11 +25,9 @@ export function FeaturedProjects({ projects }: { projects: ProjectCardData[] }) 
           id="featured-heading"
           className="text-[32px] font-semibold tracking-[-0.02em] text-foreground md:text-[40px]"
         >
-          Đang mở cửa
+          {p.featuredTitle}
         </h2>
-        <p className="mt-3 max-w-[36rem] text-[17px] leading-[1.47] text-ink-secondary">
-          Một vài sản phẩm vẫn vào được ngay.
-        </p>
+        <p className="mt-3 max-w-[36rem] text-[17px] leading-[1.47] text-ink-secondary">{p.featuredBody}</p>
         <div className="mt-10 flex flex-col gap-6 md:mt-12">
           <FeaturedLead project={lead} />
           {rest.length > 0 ? (
@@ -43,7 +45,16 @@ export function FeaturedProjects({ projects }: { projects: ProjectCardData[] }) 
   );
 }
 
+function useCardCopy(project: ProjectCardData) {
+  const { lang } = useLanguage();
+  const en = PROJECT_EN[project.slug];
+  if (lang === "vi" || !en) return { title: project.title, summary: project.summary };
+  return { title: en.title, summary: en.summary };
+}
+
 function FeaturedLead({ project }: { project: ProjectCardData }) {
+  const { p } = useLanguage();
+  const copy = useCardCopy(project);
   const demo = demoForProject(project.slug);
   return (
     <article className="howl-card overflow-hidden">
@@ -52,33 +63,24 @@ function FeaturedLead({ project }: { project: ProjectCardData }) {
           <StatusLabel status={project.status} />
           <h3 className="mt-4 text-[32px] font-semibold tracking-[-0.02em] text-foreground md:text-[40px]">
             <Link href={`/projects/${project.slug}`} className="hover:underline">
-              {project.title}
+              {copy.title}
             </Link>
           </h3>
-          <p className="mt-4 text-[17px] leading-[1.47] text-ink-secondary md:text-[19px]">
-            {project.summary}
-          </p>
+          <p className="mt-4 text-[17px] leading-[1.47] text-ink-secondary md:text-[19px]">{copy.summary}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <AppleButton
-              nativeButton={false}
-              render={<Link href={`/projects/${project.slug}`} />}
-            >
-              Tìm hiểu thêm
+            <AppleButton nativeButton={false} render={<Link href={`/projects/${project.slug}`} />}>
+              {p.learnMore}
             </AppleButton>
-            {demo ? <DemoLink demo={demo} /> : <DemoAction project={project} />}
+            {demo ? <DemoLink demo={demo} /> : <DemoAction project={{ ...project, title: copy.title }} />}
           </div>
         </div>
         <div className="relative min-h-[240px] lg:min-h-[520px]">
-          {demo?.hasMockups ? (
-            <DemoMockup demo={demo} priority />
-          ) : (
-            <ProjectImage
-              src={project.cover}
-              alt={coverAlt(project.title)}
-              sizes="(min-width: 1024px) 560px, 100vw"
-              priority
-            />
-          )}
+          <ProjectImage
+            src={project.cover}
+            alt={p.coverAlt(copy.title)}
+            sizes="(min-width: 1024px) 560px, 100vw"
+            priority
+          />
         </div>
       </div>
     </article>
@@ -86,6 +88,8 @@ function FeaturedLead({ project }: { project: ProjectCardData }) {
 }
 
 function FeaturedTile({ project }: { project: ProjectCardData }) {
+  const copy = useCardCopy(project);
+  const { p } = useLanguage();
   const demo = demoForProject(project.slug);
   return (
     <article className="howl-card grid h-full overflow-hidden sm:grid-cols-2">
@@ -93,26 +97,20 @@ function FeaturedTile({ project }: { project: ProjectCardData }) {
         <StatusLabel status={project.status} />
         <h3 className="mt-3 text-[24px] font-semibold tracking-[-0.02em] text-foreground">
           <Link href={`/projects/${project.slug}`} className="hover:underline">
-            {project.title}
+            {copy.title}
           </Link>
         </h3>
-        <p className="mt-3 line-clamp-3 text-[17px] leading-[1.47] text-ink-secondary">
-          {project.summary}
-        </p>
+        <p className="mt-3 line-clamp-3 text-[17px] leading-[1.47] text-ink-secondary">{copy.summary}</p>
         <div className="mt-6">
-          {demo ? <DemoLink demo={demo} /> : <DemoAction project={project} />}
+          {demo ? <DemoLink demo={demo} /> : <DemoAction project={{ ...project, title: copy.title }} />}
         </div>
       </div>
       <div className="relative min-h-[200px]">
-        {demo?.hasMockups ? (
-          <DemoMockup demo={demo} />
-        ) : (
-          <ProjectImage
-            src={project.cover}
-            alt={coverAlt(project.title)}
-            sizes="(min-width: 1024px) 280px, 100vw"
-          />
-        )}
+        <ProjectImage
+          src={project.cover}
+          alt={p.coverAlt(copy.title)}
+          sizes="(min-width: 1024px) 280px, 100vw"
+        />
       </div>
     </article>
   );

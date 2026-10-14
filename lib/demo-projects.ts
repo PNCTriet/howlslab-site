@@ -6,6 +6,8 @@ export type DemoProject = {
   url?: string;
   /** Mockups live in /public/demos/{slug}-macbook.webp and -iphone.webp. */
   hasMockups: boolean;
+  /** Raw screenshots composited into official Apple bezels on the project page. */
+  screens?: { macbook: string; iphone: string };
   en: string;
   vi: string;
 };
@@ -17,6 +19,10 @@ export const DEMO_PROJECTS: DemoProject[] = [
     name: "Fitting Lab",
     url: "https://tryon.howlslab.com",
     hasMockups: true,
+    screens: {
+      macbook: "/screens/tryon-desktop.webp",
+      iphone: "/screens/tryon-mobile.webp",
+    },
     en: "Live fitting rooms for fashion brands, with AI virtual try-on.",
     vi: "Phòng thử đồ trực tuyến cho thương hiệu thời trang, thử đồ ảo bằng AI.",
   },

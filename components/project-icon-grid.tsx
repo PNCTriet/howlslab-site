@@ -1,11 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { coverAlt } from "@/lib/site";
+import { useLanguage } from "@/components/language-provider";
+import { PROJECT_EN } from "@/lib/project-en";
 import type { Project } from "@/lib/types";
 
 function previews(project: Project) {
   const items = [
-    { src: project.cover, alt: coverAlt(project.title) },
+    { src: project.cover, alt: "" },
     ...project.gallery.map((image) => ({ src: image.src, alt: image.alt })),
   ];
   const seen = new Set<string>();
@@ -20,6 +23,7 @@ function previews(project: Project) {
 }
 
 export function ProjectIconGrid({ projects }: { projects: Project[] }) {
+  const { lang, p } = useLanguage();
   const tiles = [
     ...projects.filter((project) => project.status === "live"),
     ...projects.filter((project) => project.status === "outdated"),
@@ -30,13 +34,14 @@ export function ProjectIconGrid({ projects }: { projects: Project[] }) {
       {tiles.map((project) => {
         const shots = previews(project);
         const outdated = project.status === "outdated";
+        const title = lang === "en" ? (PROJECT_EN[project.slug]?.title ?? project.title) : project.title;
         return (
           <li key={project.slug} className="flex justify-center">
             <Link
               href={`/projects/${project.slug}`}
               data-slug={project.slug}
               data-count={shots.length}
-              aria-label={outdated ? `${project.title}, đã cũ` : project.title}
+              aria-label={outdated ? `${title}, ${p.olderMark}` : title}
               className={outdated ? "app-tile is-outdated" : "app-tile"}
             >
               <span className="preview-fan" aria-hidden="true">
@@ -49,8 +54,8 @@ export function ProjectIconGrid({ projects }: { projects: Project[] }) {
               <span className="app-icon">
                 <Image src={project.icon} alt="" width={72} height={72} unoptimized />
               </span>
-              <span className="app-label">{project.title}</span>
-              {outdated ? <span className="old-mark">Đã cũ</span> : null}
+              <span className="app-label">{title}</span>
+              {outdated ? <span className="old-mark">{p.olderMark}</span> : null}
             </Link>
           </li>
         );

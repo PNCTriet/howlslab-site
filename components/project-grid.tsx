@@ -2,18 +2,20 @@
 
 import { useRef, useState } from "react";
 import { ProjectCard } from "@/components/project-card";
+import { useLanguage } from "@/components/language-provider";
 import { cn } from "@/lib/utils";
 import type { ProjectCardData } from "@/lib/types";
 
 const FILTERS = [
-  { id: "all", label: "Tất cả" },
-  { id: "live", label: "Đang chạy" },
-  { id: "outdated", label: "Đã cũ" },
+  { id: "all", label: "filterAll" },
+  { id: "live", label: "filterLive" },
+  { id: "outdated", label: "filterOlder" },
 ] as const;
 
 type FilterId = (typeof FILTERS)[number]["id"];
 
 export function ProjectGrid({ projects }: { projects: ProjectCardData[] }) {
+  const { p } = useLanguage();
   const [filter, setFilter] = useState<FilterId>("all");
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
   const visible =
@@ -43,15 +45,13 @@ export function ProjectGrid({ projects }: { projects: ProjectCardData[] }) {
               id="all-projects-heading"
               className="text-[32px] font-semibold tracking-[-0.02em] text-foreground md:text-[40px]"
             >
-              Tất cả dự án
+              {p.allTitle}
             </h2>
-            <p className="mt-3 max-w-[36rem] text-[17px] leading-[1.47] text-ink-secondary">
-              Lọc theo trạng thái. Dự án đã cũ, hoặc chưa có link public, mở bằng yêu cầu demo.
-            </p>
+            <p className="mt-3 max-w-[36rem] text-[17px] leading-[1.47] text-ink-secondary">{p.allBody}</p>
           </div>
           <div
             role="radiogroup"
-            aria-label="Lọc theo trạng thái"
+            aria-label={p.filterLabel}
             className="inline-flex w-full rounded-full bg-black/[0.05] p-1 dark:bg-white/10 md:w-auto"
             onKeyDown={onKeyDown}
           >
@@ -75,17 +75,17 @@ export function ProjectGrid({ projects }: { projects: ProjectCardData[] }) {
                   )}
                   onClick={() => setFilter(item.id)}
                 >
-                  {item.label}
+                  {p[item.label]}
                 </button>
               );
             })}
           </div>
         </div>
         <p aria-live="polite" className="mt-6 text-[12px] text-muted-foreground">
-          {visible.length} dự án
+          {p.count(visible.length)}
         </p>
         {visible.length === 0 ? (
-          <p className="mt-8 text-[17px] text-ink-secondary">Chưa có dự án trong nhóm này.</p>
+          <p className="mt-8 text-[17px] text-ink-secondary">{p.emptyGroup}</p>
         ) : (
           <ul className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {visible.map((project) => (

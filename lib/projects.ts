@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
+import { PROJECT_EN } from "@/lib/project-en";
 import type { GalleryImage, Project, ProjectCardData, ProjectStatus } from "@/lib/types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "projects");
@@ -118,6 +119,16 @@ function parseProject(filePath: string): Project {
 
   const gallery = parseGallery(data, file);
   for (const image of gallery) assertPublicFile(image.src, file);
+
+  const english = PROJECT_EN[slug];
+  if (!english) fail(file, "missing English copy in lib/project-en.ts");
+  if (english.tags.length !== stringList(data, "tags", file).length) {
+    fail(file, "English tags must match tags");
+  }
+  if (english.features.length !== stringList(data, "features", file).length) {
+    fail(file, "English features must match features");
+  }
+  if (english.gallery.length !== gallery.length) fail(file, "English gallery must match gallery");
 
   const year = optionalNumber(data, "year", file);
   if (year != null && (year < 1990 || year > 2100)) fail(file, "year looks invalid");

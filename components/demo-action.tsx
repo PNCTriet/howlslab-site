@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { AppleButton } from "@/components/apple-button";
 import { TextLink } from "@/components/text-link";
+import { useLanguage } from "@/components/language-provider";
 import { contactHref, hasLiveDemo } from "@/lib/site";
 import type { ProjectCardData } from "@/lib/types";
 
@@ -13,11 +16,15 @@ export function DemoAction({
   project: DemoProject;
   prominent?: boolean;
 }) {
+  const { p } = useLanguage();
   if (hasLiveDemo(project) && project.demoUrl) {
     const quiet = (
       <>
-        Xem thử
-        <span className="sr-only"> {project.title}, mở trong tab mới</span>
+        {p.tryIt}
+        <span className="sr-only">
+          {" "}
+          {project.title}, {p.opensNewTab}
+        </span>
       </>
     );
     if (prominent) {
@@ -40,10 +47,10 @@ export function DemoAction({
   if (prominent) {
     return (
       <AppleButton nativeButton={false} render={<Link href={contactHref(project.slug)} />}>
-        Yêu cầu demo
+        {p.requestDemo}
       </AppleButton>
     );
   }
 
-  return <TextLink href={contactHref(project.slug)}>Yêu cầu demo</TextLink>;
+  return <TextLink href={contactHref(project.slug)}>{p.requestDemo}</TextLink>;
 }

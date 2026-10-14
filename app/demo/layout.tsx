@@ -25,7 +25,7 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
             </Link>
           ))}
           <Link href="/" className="text-muted-foreground hover:text-foreground hover:underline sm:ml-auto">
-            Fitting Lab
+            Home
           </Link>
         </div>
       </nav>

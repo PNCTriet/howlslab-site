@@ -10,6 +10,7 @@ const links = [
   { href: "/demo", label: "Portfolio" },
   { href: "/demo/grid", label: "Icon grid" },
   { href: "/demo/dock", label: "Dock" },
+  { href: "/demo/fitting", label: "Fitting Lab" },
 ];
 
 export default function DemoLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +25,7 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
             </Link>
           ))}
           <Link href="/" className="text-muted-foreground hover:text-foreground hover:underline sm:ml-auto">
-            Fitting Lab
+            Home
           </Link>
         </div>
       </nav>

@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SIGNATURE_PATH, SIGNATURE_VIEWBOX } from "@/components/signature-path";
+import { useLanguage } from "@/components/language-provider";
 
 /** Handwritten “howlslab”. The pen writes it once, the first time it scrolls into view. */
 export function Signature() {
+  const { lang } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"idle" | "drawn">("idle");
 
@@ -29,7 +31,12 @@ export function Signature() {
       <noscript>
         <style>{`.signature path{stroke-dashoffset:0!important;animation:none!important}`}</style>
       </noscript>
-      <svg viewBox={SIGNATURE_VIEWBOX} role="img" aria-label="Chữ ký: howlslab" className="h-auto w-full">
+      <svg
+        viewBox={SIGNATURE_VIEWBOX}
+        role="img"
+        aria-label={lang === "vi" ? "Chữ ký: howlslab" : "Signature: howlslab"}
+        className="h-auto w-full"
+      >
         <path d={SIGNATURE_PATH} pathLength={1} />
       </svg>
     </div>

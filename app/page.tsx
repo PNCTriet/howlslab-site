@@ -1,6 +1,7 @@
-import { FittingHome } from "@/components/fitting-home";
-import "@/components/home-proposal/proposal.css";
+import { PortfolioHome } from "@/components/portfolio-home";
+import { getAllProjects, toCard } from "@/lib/projects";
 
 export default function HomePage() {
-  return <FittingHome />;
+  const cards = getAllProjects().map(toCard);
+  return <PortfolioHome cards={cards} />;
 }

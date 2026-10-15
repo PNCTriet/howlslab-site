@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useLanguage } from "@/components/language-provider";
 import { site } from "@/lib/site";
 
 function isTypingTarget(target: EventTarget | null) {
@@ -28,16 +29,17 @@ async function copyEmail() {
 }
 
 export function CopyEmailHint() {
+  const { p } = useLanguage();
   const [toast, setToast] = useState<string | null>(null);
 
   const copy = useCallback(async () => {
     try {
       await copyEmail();
-      setToast("Đã chép email");
+      setToast(p.copiedEmail);
     } catch {
-      setToast("Không chép được");
+      setToast(p.copyFailed);
     }
-  }, []);
+  }, [p.copiedEmail, p.copyFailed]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -60,17 +62,17 @@ export function CopyEmailHint() {
 
   return (
     <p className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-2 text-[15px] text-ink-secondary">
-      <span>Nhấn</span>
+      <span>{p.press}</span>
       <button
         type="button"
         className="keycap"
         aria-keyshortcuts="C"
-        aria-label="Chép email"
+        aria-label={p.copyEmail}
         onClick={() => void copy()}
       >
         C
       </button>
-      <span>để copy email</span>
+      <span>{p.toCopyEmail}</span>
       <span className="sr-only" role="status" aria-live="polite">
         {toast ?? ""}
       </span>

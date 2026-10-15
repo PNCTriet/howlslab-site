@@ -15,7 +15,7 @@ function MdxLink(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
 
 export function CaseStudyBody({ source }: { source: string }) {
   if (!source) {
-    return <p className="text-[17px] text-ink-secondary">Sắp cập nhật.</p>;
+    return <p className="text-[17px] text-ink-secondary">Coming soon.</p>;
   }
 
   return (

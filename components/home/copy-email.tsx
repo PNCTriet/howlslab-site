@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 
 function isTypingTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) return false;
@@ -29,6 +30,7 @@ async function writeClipboard(text: string) {
 
 /** “Nhấn [C] để copy email” — the C key anywhere on the page, or a tap on the line. */
 export function CopyEmail({ email }: { email: string }) {
+  const { p } = useLanguage();
   const [toast, setToast] = useState<{ ok: boolean; key: number } | null>(null);
   const timer = useRef<number | undefined>(undefined);
 
@@ -62,13 +64,13 @@ export function CopyEmail({ email }: { email: string }) {
         type="button"
         onClick={() => void copy()}
         className="group -mx-2 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full px-2 text-[15px] text-ink-secondary transition-colors hover:text-foreground"
-        aria-label={`Copy email ${email}`}
+        aria-label={`${p.copyEmail} ${email}`}
       >
-        <span>Nhấn</span>
+        <span>{p.press}</span>
         <kbd className="keycap" aria-hidden="true">
           C
         </kbd>
-        <span>để copy email</span>
+        <span>{p.toCopyEmail}</span>
       </button>
 
       <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-8 z-50 flex justify-center px-4">
@@ -78,11 +80,9 @@ export function CopyEmail({ email }: { email: string }) {
               <Check className="size-3" strokeWidth={3} />
             </span>
             {toast.ok ? (
-              <>
-                Đã copy <span className="font-medium">{email}</span>
-              </>
+              <span className="font-medium">{p.copiedAddress(email)}</span>
             ) : (
-              <>Không copy được — email: {email}</>
+              <>{p.copyFailedAddress(email)}</>
             )}
           </p>
         ) : null}

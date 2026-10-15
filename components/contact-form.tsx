@@ -4,9 +4,11 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { AppleButton } from "@/components/apple-button";
+import { useLanguage } from "@/components/language-provider";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { PROJECT_EN } from "@/lib/project-en";
 import { site } from "@/lib/site";
 import type { ProjectStatus } from "@/lib/types";
 
@@ -22,7 +24,23 @@ type Errors = Partial<Record<Field, string>>;
 const fieldClass =
   "h-12 rounded-[12px] border-border bg-background px-4 text-[17px] shadow-none md:text-[17px]";
 
+export function ContactIntro() {
+  const { p } = useLanguage();
+  return (
+    <>
+      <p className="text-center text-[14px] font-medium text-ink-secondary">{p.contactEyebrow}</p>
+      <h1 className="mt-3 text-center text-[40px] font-semibold tracking-[-0.025em] text-foreground md:text-[56px]">
+        {p.contactHeading}
+      </h1>
+      <p className="mx-auto mt-4 max-w-[36rem] text-center text-[17px] leading-[1.47] text-ink-secondary md:text-[19px]">
+        {p.contactIntro(site.contactEmail)}
+      </p>
+    </>
+  );
+}
+
 export function ContactForm({ projects }: { projects: ProjectOption[] }) {
+  const { lang, p } = useLanguage();
   const params = useSearchParams();
   const requested = params.get("project") ?? "";
   const known = projects.some((project) => project.slug === requested);
@@ -49,13 +67,18 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
   const outdated = projects.filter((project) => project.status === "outdated");
   const selected = projects.find((project) => project.slug === projectSlug);
 
+  function titleFor(project: ProjectOption) {
+    if (lang === "vi") return project.title;
+    return PROJECT_EN[project.slug]?.title ?? project.title;
+  }
+
   function validate(): Errors {
     const next: Errors = {};
-    if (name.trim().length === 0) next.name = "Hãy nhập họ tên.";
+    if (name.trim().length === 0) next.name = p.nameError;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      next.email = "Email chưa đúng định dạng.";
+      next.email = p.emailError;
     }
-    if (message.trim().length === 0) next.message = "Hãy nhập lời nhắn.";
+    if (message.trim().length === 0) next.message = p.messageError;
     return next;
   }
 
@@ -76,11 +99,11 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
       return;
     }
 
-    const subject = `Yêu cầu demo — ${selected?.title ?? "HOWL LAB"}`;
+    const subject = p.mailSubject(selected ? titleFor(selected) : p.mailStudio);
     const body = [
-      `Họ tên: ${name.trim()}`,
-      `Email: ${email.trim()}`,
-      `Dự án: ${selected?.title ?? "Chưa chọn"}`,
+      `${p.mailName}: ${name.trim()}`,
+      `${p.mailEmail}: ${email.trim()}`,
+      `${p.mailProject}: ${selected ? titleFor(selected) : p.mailNone}`,
       "",
       message.trim(),
     ].join("\n");
@@ -97,15 +120,12 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
           tabIndex={-1}
           className="text-[28px] font-semibold tracking-[-0.02em] text-foreground outline-none"
         >
-          Thư đã được soạn
+          {p.draftedTitle}
         </h2>
-        <p className="mt-4 text-[17px] leading-[1.47] text-ink-secondary">
-          Ứng dụng thư sẽ mở để gửi tới {site.contactEmail}. HOWL LAB không lưu biểu mẫu này
-          trên máy chủ.
-        </p>
+        <p className="mt-4 text-[17px] leading-[1.47] text-ink-secondary">{p.draftedBody(site.contactEmail)}</p>
         <p className="mt-4 text-[17px]">
           <a className="text-link hover:underline" href={draftHref}>
-            Mở lại thư
+            {p.reopenDraft}
           </a>
         </p>
         <button
@@ -113,7 +133,7 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
           className="mt-8 text-[17px] text-link hover:underline"
           onClick={() => setDraftHref(null)}
         >
-          Soạn yêu cầu khác
+          {p.anotherRequest}
         </button>
       </div>
     );
@@ -123,7 +143,7 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
     <form className="mt-12 space-y-8" onSubmit={onSubmit} noValidate>
       <Field
         id={nameId}
-        label="Họ tên"
+        label={p.nameLabel}
         error={errors.name}
       >
         <Input
@@ -157,7 +177,7 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
       </Field>
       <div>
         <Label htmlFor={projectId} className="text-[14px] text-foreground">
-          Dự án
+          {p.projectLabel}
         </Label>
         <div className="relative mt-2">
           <select
@@ -167,9 +187,9 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
             onChange={(event) => setProjectSlug(event.target.value)}
             className={`${fieldClass} w-full appearance-none pr-10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50`}
           >
-            <option value="">Chọn dự án, nếu có</option>
-            <ProjectOptions label="Đang chạy" projects={live} />
-            <ProjectOptions label="Đã cũ" projects={outdated} />
+            <option value="">{p.projectPlaceholder}</option>
+            <ProjectOptions label={p.filterLive} projects={live} titleFor={titleFor} />
+            <ProjectOptions label={p.filterOlder} projects={outdated} titleFor={titleFor} />
           </select>
           <ChevronDown
             className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-muted-foreground"
@@ -177,7 +197,7 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
           />
         </div>
       </div>
-      <Field id={messageId} label="Lời nhắn" error={errors.message}>
+      <Field id={messageId} label={p.messageLabel} error={errors.message}>
         <Textarea
           ref={messageRef}
           id={messageId}
@@ -196,11 +216,8 @@ export function ContactForm({ projects }: { projects: ProjectOption[] }) {
         </p>
       </Field>
       <div className="space-y-3">
-        <AppleButton type="submit">Gửi yêu cầu</AppleButton>
-        <p className="text-[12px] leading-[1.4] text-muted-foreground">
-          Nút này chỉ mở email trên máy bạn, gửi tới {site.contactEmail}. Không có dữ liệu được
-          lưu trên máy chủ.
-        </p>
+        <AppleButton type="submit">{p.sendRequest}</AppleButton>
+        <p className="text-[12px] leading-[1.4] text-muted-foreground">{p.formHint(site.contactEmail)}</p>
       </div>
     </form>
   );
@@ -235,16 +252,18 @@ function Field({
 function ProjectOptions({
   label,
   projects,
+  titleFor,
 }: {
   label: string;
   projects: ProjectOption[];
+  titleFor: (project: ProjectOption) => string;
 }) {
   if (projects.length === 0) return null;
   return (
     <optgroup label={label}>
       {projects.map((project) => (
         <option key={project.slug} value={project.slug}>
-          {project.title}
+          {titleFor(project)}
         </option>
       ))}
     </optgroup>

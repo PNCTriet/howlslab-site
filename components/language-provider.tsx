@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useSyncExternalStore } from "react";
 import { copy, type Lang } from "@/lib/home-copy";
+import { portfolioCopy } from "@/lib/portfolio-copy";
 
 const STORAGE_KEY = "howlslab-lang";
 const CHANGE_EVENT = "howlslab-lang-change";
@@ -23,6 +24,7 @@ type LanguageContextValue = {
   lang: Lang;
   setLang: (lang: Lang) => void;
   t: (typeof copy)[Lang];
+  p: (typeof portfolioCopy)[Lang];
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
@@ -41,7 +43,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: copy[lang] }}>{children}</LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, setLang, t: copy[lang], p: portfolioCopy[lang] }}>
+      {children}
+    </LanguageContext.Provider>
   );
 }
 

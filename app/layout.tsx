@@ -13,9 +13,8 @@ const inter = Inter({
   display: "swap",
 });
 
-const title = "Fitting Lab by HOWLSLAB – AI virtual try-on for fashion brands";
-const description =
-  "Fitting Lab is AI virtual try-on for fashion brands. Howls Lab builds brand demo rooms, shareable links, lead tracking, and the AI layer around try-on.";
+const title = "HOWL LAB — Products we have shipped";
+const description = site.description;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

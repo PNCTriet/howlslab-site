@@ -13,15 +13,17 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import { useLanguage } from "@/components/language-provider";
 import { StatusLabel } from "@/components/status-label";
-import { statusLabel } from "@/lib/site";
 import type { ProjectStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export type DockItem = {
   slug: string;
   title: string;
+  titleEn?: string;
   tagline: string;
+  taglineEn?: string;
   status: ProjectStatus;
   cover: string;
   icon: string;
@@ -70,7 +72,14 @@ export function ProjectDock({
   label?: string;
   ariaLabel: string;
 }) {
+  const { lang, p } = useLanguage();
   const { base, max, reach } = METRICS[variant];
+  function itemText(item: DockItem) {
+    return {
+      title: lang === "en" && item.titleEn ? item.titleEn : item.title,
+      tagline: lang === "en" && item.taglineEn ? item.taglineEn : item.tagline,
+    };
+  }
   const wide = useMedia(WIDE_QUERY);
   const finePointer = useMedia(HOVER_QUERY);
   // Some environments misreport hover support; a real mouse moving over the dock settles it.
@@ -256,7 +265,7 @@ export function ProjectDock({
             <span className="dock-light bg-[#28c840]" />
             <span className="dock-card-url">howlslab.com/projects/{current.slug}</span>
           </div>
-          <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+          <div className="relative aspect-[16/9] overflow-hidden bg-[#f5f5f7]">
             {items.map((item, index) => (
               <Image
                 key={item.slug}
@@ -266,7 +275,7 @@ export function ProjectDock({
                 unoptimized={item.cover.endsWith(".svg")}
                 sizes={`${CARD_WIDTH}px`}
                 className={cn(
-                  "object-cover transition-opacity duration-300",
+                  "object-contain transition-opacity duration-300",
                   index === shown ? "opacity-100" : "opacity-0",
                 )}
               />
@@ -275,11 +284,11 @@ export function ProjectDock({
           <div className="px-4 pt-3 pb-3.5">
             <div className="flex items-center justify-between gap-3">
               <p className="truncate text-[15px] font-semibold tracking-[-0.016em] text-foreground">
-                {current.title}
+                {itemText(current).title}
               </p>
               <StatusLabel status={current.status} className="shrink-0" />
             </div>
-            <p className="mt-0.5 truncate text-[13px] leading-[1.38] text-ink-secondary">{current.tagline}</p>
+            <p className="mt-0.5 truncate text-[13px] leading-[1.38] text-ink-secondary">{itemText(current).tagline}</p>
           </div>
         </div>
       ) : null}
@@ -298,7 +307,10 @@ export function ProjectDock({
           onPointerLeave={onPointerLeave}
           onKeyDown={onKeyDown}
         >
-          {items.map((item, index) => (
+          {items.map((item, index) => {
+            const { title, tagline } = itemText(item);
+            const status = item.status === "live" ? p.statusLive : p.statusOlder;
+            return (
             <li
               key={item.slug}
               ref={(node) => {
@@ -312,12 +324,12 @@ export function ProjectDock({
               }}
             >
               <span className="dock-tip" aria-hidden="true">
-                {item.title}
+                {title}
               </span>
               <Link
                 href={`/projects/${item.slug}`}
                 className="dock-link"
-                aria-label={`${item.title}, ${statusLabel(item.status)}. ${item.tagline}`}
+                aria-label={`${title}, ${status}. ${tagline}`}
                 onFocus={(event) => onFocusItem(index, event.currentTarget)}
                 onBlur={onBlurItem}
                 draggable={false}
@@ -334,12 +346,13 @@ export function ProjectDock({
                   />
                 </ViewTransition>
                 <span className="dock-name" aria-hidden="true">
-                  {item.title}
+                  {title}
                 </span>
               </Link>
               {item.status === "live" ? <span className="dock-dot" aria-hidden="true" /> : null}
             </li>
-          ))}
+            );
+          })}
         </ul>
       </div>
     </div>

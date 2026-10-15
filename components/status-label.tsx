@@ -1,5 +1,7 @@
+"use client";
+
+import { useLanguage } from "@/components/language-provider";
 import { cn } from "@/lib/utils";
-import { statusLabel } from "@/lib/site";
 import type { ProjectStatus } from "@/lib/types";
 
 export function StatusLabel({
@@ -9,6 +11,7 @@ export function StatusLabel({
   status: ProjectStatus;
   className?: string;
 }) {
+  const { p } = useLanguage();
   return (
     <span
       className={cn(
@@ -26,7 +29,7 @@ export function StatusLabel({
         )}
         aria-hidden="true"
       />
-      {statusLabel(status)}
+      {status === "live" ? p.statusLive : p.statusOlder}
     </span>
   );
 }

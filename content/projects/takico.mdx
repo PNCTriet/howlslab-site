@@ -3,18 +3,27 @@ title: Takico
 slug: takico
 status: live
 demoUrl: https://takico.vercel.app/
-summary: "Màn hình game trên trình duyệt. Trang mở hiện bốn trạng thái: chờ, chơi, thua và thắng."
+summary: "Lớp giao diện kiosk cho game điều khiển bằng động tác. README mô tả năm màn: chờ, hướng dẫn, chơi, thua và thắng. Trang đang chạy hiện các nhãn chờ, chơi, thua và thắng."
 tags:
   - Game
 tech:
+  - React 18
+  - Babel
+  - model-viewer
   - Vercel
 featured: false
 order: 17
 hideClient: true
 cover: /projects/takico/cover.webp
 features:
-  - "Bốn trạng thái trên trang mở: chờ, chơi, thua, thắng"
-  - "Chơi ngay trên trình duyệt, không có bước đăng nhập"
+  - "Màn chờ, hướng dẫn, chơi, thua và thắng, theo README của repo"
+  - "Nhún xuống để nạp lực, đứng lên để thả; UI tạm dùng phím Space và chạm giữ"
+  - "Nhân vật 3D qua model-viewer, trên phông đường phố"
+  - "JSX chạy ngay trên trình duyệt, không có bước build"
 ---
 
-Takico mở thẳng vào màn hình game. Khách thấy bốn trạng thái: chờ, chơi, thua và thắng.
+Takico là lớp giao diện cho một game kiosk. Người chơi nhún xuống để lấy đà, rồi đứng lên để thả lực. README của repo liệt kê năm màn: chờ, hướng dẫn, chơi, thua và thắng. Trang đang mở hiện bốn nhãn: chờ, chơi, thua và thắng.
+
+Input trên UI hiện được mô phỏng bằng phím Space và bằng chạm giữ. README nói engine nhận diện động tác chỉ cần gọi hai hàm, press và release. Nhân vật 3D gắn bằng model-viewer. JSX biên dịch trên trình duyệt bằng Babel, không qua bước build.
+
+Tên đơn vị đặt kiosk có trong README. Trang này không ghi tên đó.

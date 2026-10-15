@@ -74,7 +74,7 @@ function FeaturedLead({ project }: { project: ProjectCardData }) {
             {demo ? <DemoLink demo={demo} /> : <DemoAction project={{ ...project, title: copy.title }} />}
           </div>
         </div>
-        <div className="relative min-h-[240px] lg:min-h-[520px]">
+        <div className="relative aspect-[16/9] bg-[#f5f5f7]">
           <ProjectImage
             src={project.cover}
             alt={p.coverAlt(copy.title, project.cover.endsWith(".webp"))}
@@ -105,7 +105,7 @@ function FeaturedTile({ project }: { project: ProjectCardData }) {
           {demo ? <DemoLink demo={demo} /> : <DemoAction project={{ ...project, title: copy.title }} />}
         </div>
       </div>
-      <div className="relative min-h-[200px]">
+      <div className="relative aspect-[16/9] bg-[#f5f5f7]">
         <ProjectImage
           src={project.cover}
           alt={p.coverAlt(copy.title, project.cover.endsWith(".webp"))}

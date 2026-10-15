@@ -265,7 +265,7 @@ export function ProjectDock({
             <span className="dock-light bg-[#28c840]" />
             <span className="dock-card-url">howlslab.com/projects/{current.slug}</span>
           </div>
-          <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+          <div className="relative aspect-[16/9] overflow-hidden bg-[#f5f5f7]">
             {items.map((item, index) => (
               <Image
                 key={item.slug}
@@ -275,7 +275,7 @@ export function ProjectDock({
                 unoptimized={item.cover.endsWith(".svg")}
                 sizes={`${CARD_WIDTH}px`}
                 className={cn(
-                  "object-cover transition-opacity duration-300",
+                  "object-contain transition-opacity duration-300",
                   index === shown ? "opacity-100" : "opacity-0",
                 )}
               />

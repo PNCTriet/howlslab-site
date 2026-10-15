@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDetail } from "@/components/project-detail";
+import { photosFor } from "@/lib/gallery";
 import { PROJECT_EN } from "@/lib/project-en";
 import { getAllProjects, getProject, toCard } from "@/lib/projects";
 import type { Project } from "@/lib/types";
@@ -46,7 +47,7 @@ export default async function ProjectPage({
 
   const related = relatedProjects(project, getAllProjects()).map(toCard);
 
-  return <ProjectDetail project={project} related={related} />;
+  return <ProjectDetail project={project} related={related} photos={photosFor(project.slug)} />;
 }
 
 function relatedProjects(current: Project, all: Project[]) {

@@ -22,12 +22,11 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
         href={`/projects/${project.slug}`}
         className="howl-card group flex h-full flex-col overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#007aff]"
       >
-        <div className="relative aspect-[16/9] overflow-hidden bg-black/[0.03] dark:bg-white/[0.04]">
+        <div className="relative aspect-[16/9] overflow-hidden bg-[#f5f5f7]">
           <ProjectImage
             src={project.cover}
             alt={p.coverAlt(title, project.cover.endsWith(".webp"))}
             sizes="(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw"
-            className="motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-spring motion-safe:group-hover:scale-[1.03]"
           />
         </div>
         <div className="flex flex-1 flex-col p-4">

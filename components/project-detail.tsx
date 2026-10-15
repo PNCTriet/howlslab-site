@@ -10,6 +10,7 @@ import { StatusLabel } from "@/components/status-label";
 import { useLanguage } from "@/components/language-provider";
 import { demoForProject } from "@/lib/demo-projects";
 import { PROJECT_EN } from "@/lib/project-en";
+import type { ProjectPhoto } from "@/lib/gallery";
 import type { Project, ProjectCardData } from "@/lib/types";
 
 function Paragraphs({ source, empty }: { source: string; empty: string }) {
@@ -32,9 +33,11 @@ function Paragraphs({ source, empty }: { source: string; empty: string }) {
 export function ProjectDetail({
   project,
   related,
+  photos,
 }: {
   project: Project;
   related: ProjectCardData[];
+  photos: ProjectPhoto[];
 }) {
   const { lang, p } = useLanguage();
   const en = PROJECT_EN[project.slug];
@@ -43,14 +46,6 @@ export function ProjectDetail({
   const tags = lang === "en" && en ? en.tags : project.tags;
   const features = lang === "en" && en ? en.features : project.features;
   const body = lang === "en" && en ? en.body : project.body;
-  const gallery =
-    lang === "en" && en
-      ? project.gallery.map((image, index) => ({
-          ...image,
-          alt: en.gallery[index]?.alt ?? image.alt,
-          caption: en.gallery[index]?.caption ?? image.caption,
-        }))
-      : project.gallery;
   const demo = demoForProject(project.slug);
   const screens = demo?.screens;
   const tech = project.tech.length > 0 ? project.tech.join(", ") : p.comingSoon;
@@ -94,38 +89,49 @@ export function ProjectDetail({
               priority
             />
           </div>
-        ) : (
-          <>
-            <p className="text-center text-[12px] text-muted-foreground">{p.placeholderNote}</p>
-            {gallery.length > 0 ? (
-              <ul className="mt-4 grid gap-4 md:grid-cols-2">
-                {gallery.map((image, index) => (
-                  <li key={image.src} className={index === 0 ? "md:col-span-2" : undefined}>
-                    <figure className="howl-card overflow-hidden">
-                      <div className="relative aspect-[16/10]">
-                        <ProjectImage
-                          src={image.src}
-                          alt={image.alt}
-                          sizes={
-                            index === 0
-                              ? "(min-width: 1120px) 1072px, 100vw"
-                              : "(min-width: 1120px) 520px, 100vw"
-                          }
-                          priority={index === 0}
-                        />
-                      </div>
-                      <figcaption className="px-4 py-3 text-center text-[12px] leading-[1.33] text-muted-foreground">
-                        {image.caption}
-                      </figcaption>
-                    </figure>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-6 text-center text-[17px] text-ink-secondary">{p.noShots}</p>
-            )}
-          </>
-        )}
+        ) : null}
+
+        <section aria-labelledby="photos-heading" className={screens ? "mt-16" : undefined}>
+          <h2
+            id="photos-heading"
+            className="text-[28px] font-semibold tracking-[-0.02em] text-foreground md:text-[32px]"
+          >
+            {p.photos}
+          </h2>
+          {photos.length > 0 ? (
+            <ul className="mt-6 grid gap-4">
+              {photos.map((photo) => (
+                <li key={photo.src}>
+                  <figure className="howl-card overflow-hidden bg-[#f5f5f7]">
+                    <div className="relative aspect-[16/9]">
+                      <ProjectImage
+                        src={photo.src}
+                        alt={
+                          photo.kind === "placeholder"
+                            ? p.photoPlaceholder
+                            : photo.kind === "repository"
+                              ? p.photoRepository
+                              : p.photoOpening
+                        }
+                        sizes="(min-width: 1120px) 1072px, 100vw"
+                        priority={!screens}
+                      />
+                    </div>
+                    <figcaption className="px-4 py-3 text-center text-[12px] leading-[1.33] text-muted-foreground">
+                      {photo.kind === "placeholder"
+                        ? p.photoPlaceholder
+                        : photo.kind === "repository"
+                          ? p.photoRepository
+                          : p.photoOpening}
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-6 text-[17px] text-ink-secondary">{p.noShots}</p>
+          )}
+        </section>
       </div>
 
       <div className="mx-auto max-w-[720px] px-6 py-16 md:py-24">

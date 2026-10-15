@@ -18,7 +18,7 @@ export function ProjectImage({ src, alt, sizes, priority = false, className }: P
       sizes={sizes}
       priority={priority}
       unoptimized={src.endsWith(".svg")}
-      className={cn("object-cover", className)}
+      className={cn("object-contain", className)}
     />
   );
 }

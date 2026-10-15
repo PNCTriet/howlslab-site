@@ -47,7 +47,7 @@ export function ProjectIconGrid({ projects }: { projects: Project[] }) {
               <span className="preview-fan" aria-hidden="true">
                 {shots.map((shot) => (
                   <span key={shot.src} className="preview-card">
-                    <Image src={shot.src} alt="" fill sizes="112px" unoptimized className="object-cover" />
+                    <Image src={shot.src} alt="" fill sizes="112px" unoptimized className="object-contain" />
                   </span>
                 ))}
               </span>

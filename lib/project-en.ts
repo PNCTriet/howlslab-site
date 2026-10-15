@@ -313,73 +313,83 @@ export const PROJECT_EN: Record<string, ProjectEnglish> = {
   takico: {
     title: "Takico",
     summary:
-      "A browser game screen. The first page shows four states: waiting, playing, lose, and win.",
+      "A kiosk interface for a gesture game. The repo README describes five screens: waiting, how-to, play, lose, and win. The live page shows the labels waiting, play, lose, and win.",
     tags: ["Game"],
     features: [
-      "Four states on the opening page: waiting, playing, lose, and win",
-      "Play in the browser, with no sign-in step",
+      "Waiting, how-to, play, lose, and win screens, as listed in the repo README",
+      "Crouch to charge and stand to release; the UI stand-in is the Space key and a press-and-hold",
+      "A 3D character through model-viewer, on a street background",
+      "JSX runs in the browser, with no build step",
     ],
     gallery: [],
-    body: "Takico opens on the game screen. A visitor sees four states: waiting, playing, lose, and win.",
+    body: "Takico is the interface layer for a kiosk game. The player crouches to build momentum, then stands to release it. The repo README lists five screens: waiting, how-to, play, lose, and win. The live page shows four labels: waiting, play, lose, and win.\n\nThe UI currently simulates input with the Space key and with a press-and-hold. The README says a motion engine only has to call two functions, press and release. The 3D character is attached with model-viewer. JSX is compiled in the browser with Babel, with no build step.\n\nThe client name is in the README. This page does not repeat it.",
   },
   "mb-life-photobooth": {
     title: "MB Life Photobooth",
     summary:
-      "The opening page of an event photobooth. Three ways in: an iPad employee-code screen, an LED stage screen, and an admin list.",
+      "The opening page is a Photobooth menu with three ways in: an iPad code screen, an LED screen, and an admin list. The README describes the iPad sending a name to Supabase and the LED showing that name with years together.",
     tags: ["Events"],
     features: [
-      "An opening menu with three links",
-      "An iPad screen for an employee code",
-      "An LED stage screen and an admin list",
+      "An opening menu with three links: iPad, LED, and admin",
+      "The iPad enters or picks a name, with suggestions from the list",
+      "The LED receives a realtime state and shows the name with years together",
+      "The LED background uses Three.js",
     ],
     gallery: [],
-    body: "The first page is a dark menu. The three items go to the iPad code screen, the LED screen, and the employee list.",
+    body: "The live page opens on a dark menu titled Photobooth. The three items go to an iPad employee-code screen, an LED stage screen, and an admin list.\n\nThe repo README describes the flow behind that menu. A participant enters a name on the iPad. The app matches the name to an employee table in Supabase, writes one shared state, and the LED shows an animation of the name and the years together. The LED background uses Three.js. The repo does not record an event date or a headcount.",
   },
   "mb-life-lucky-draw": {
     title: "MB Life Lucky Draw",
-    summary: "The opening page of an event lucky draw. Two ways in: an LED screen and an admin page.",
+    summary:
+      "A dark opening page with the event title and two buttons: open the LED screen, open the admin page. The repo named in the Drive doc is not publicly readable from here.",
     tags: ["Events"],
     features: [
-      "An event title on a dark background",
+      "The event title on the opening page",
       "A button that opens the LED screen",
       "A button that opens the admin page",
     ],
     gallery: [],
-    body: "The first page asks whether to open the LED screen or the admin page. The draw itself sits behind those two links.",
+    body: "The Drive doc lists the repo and the demo link. The demo opens on a dark page with the event title and two buttons: open the LED screen, and open the admin page.\n\nThe repo is not readable from here, so how the draw works behind those two links is not recorded on this page.",
   },
   pendiasure: {
     title: "Pendiasure",
     summary:
-      "A registration form on the opening page of a seminar. The visitor enters a name or a store name, then confirms.",
+      "The live page is a seminar registration form. The page title is PediaSure. A visitor enters a name or a store name, then confirms. The repo is not publicly readable from here.",
     tags: ["Registration"],
-    features: ["A field for a name or a store name", "A confirm button on the same page"],
+    features: [
+      "A form on the opening page of the seminar",
+      "A field for a name or a store name",
+      "A confirm button on the same page",
+    ],
     gallery: [],
-    body: "The landing is a seminar registration form. The visitor fills in a name or a store name and confirms.",
+    body: "The Drive doc lists the Trinity-Abbott repo and the demo link. The live page is titled PediaSure and is a seminar registration form. A visitor enters a name or a store name, then confirms.\n\nThe repo is not readable from here, so the steps after the confirm button are not recorded on this page.",
   },
   "jump-jump": {
     title: "Jump Jump",
     summary:
-      "The waiting screen of a mic-catching jump game. It shows a slogan, and a prompt to press a key or tap to start.",
+      "A mic-catching jump game that opens on a waiting screen. It includes stand, crouch, and jump instructions. With no camera, the page tells the visitor to use the keyboard. The repo is not publicly readable from here.",
     tags: ["Game"],
     features: [
-      "A waiting screen with a catch-the-mic slogan",
-      "Start with a key or a tap",
-      "Stand, crouch, and jump instructions live in the same demo",
+      "A waiting screen with a catch-the-mic line",
+      "Instructions to stand on a platform, crouch to charge, and stand up to launch",
+      "With no camera, use the keyboard; Space starts a run",
+      "The page loads a pose-detection library",
     ],
     gallery: [],
-    body: "The demo opens on a waiting screen: catch the mic, catch the moment. A visitor presses a key or taps to start a run.",
+    body: "The Drive doc lists the micatcher-jump-jump repo and the demo link. The demo opens on a waiting screen, with the line about catching the mic and catching the moment. The same page includes instructions: stand, crouch to charge, and stand up to launch.\n\nWhen the browser has no camera, the page says to use the keyboard. Space starts a run. The app is Next.js and loads a pose-detection library. The repo is not readable from here.",
   },
   "live-puzzle": {
     title: "Live Puzzle",
     summary:
-      "The source notes point at the same demo as Jump Jump. That demo has no separate puzzle page or mode.",
+      "The Drive doc lists the same repo and the same demo link as Jump Jump. That demo is the jump game. It has no /puzzle page and no puzzle mode in the bundle that is running.",
     tags: ["Game"],
     features: [
-      "No puzzle path on the Jump Jump demo",
+      "The Drive doc points at the Jump Jump demo",
       "The paths /puzzle and /live-puzzle return not found",
+      "The bundle of the live page does not contain the word puzzle",
     ],
     gallery: [],
-    body: "The source lists Live Puzzle on the same repo and the same demo as Jump Jump. That demo is the jump game. It has no puzzle route or mode to open.",
+    body: "The Live Puzzle entry in the Drive doc uses the same GitHub address and the same demo link as Jump Jump. That demo opens on the waiting screen of the jump game.\n\nThe path /puzzle redirects and then returns not found. The path /live-puzzle is also not found. The JavaScript bundle of the live page does not contain the word puzzle, so this page does not attach a demo link.",
   },
 };
 

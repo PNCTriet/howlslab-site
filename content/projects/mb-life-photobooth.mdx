@@ -3,19 +3,26 @@ title: MB Life Photobooth
 slug: mb-life-photobooth
 status: live
 demoUrl: https://mb-life-demo.vercel.app/
-summary: "Trang mở của photobooth sự kiện. Ba lối vào: iPad nhập mã nhân viên, màn LED sân khấu, và danh sách quản trị."
+summary: "Trang mở là menu Photobooth với ba lối vào: iPad nhập mã, màn LED, và danh sách quản trị. README mô tả iPad gửi tên lên Supabase và màn LED hiện tên cùng số năm gắn bó."
 tags:
   - Sự kiện
 tech:
+  - Next.js
+  - React
+  - Three.js
+  - Supabase
   - Vercel
 featured: false
 order: 18
 hideClient: true
 cover: /projects/mb-life-photobooth/cover.webp
 features:
-  - "Menu mở với ba đường dẫn"
-  - "iPad nhập mã nhân viên"
-  - "Màn LED sân khấu và trang danh sách quản trị"
+  - "Menu mở với ba đường dẫn: iPad, màn LED, quản trị"
+  - "iPad nhập hoặc chọn tên, có gợi ý từ danh sách"
+  - "Màn LED nhận trạng thái realtime và hiện tên cùng số năm gắn bó"
+  - "Nền màn LED dùng Three.js"
 ---
 
-Trang đầu là một menu tối. Ba mục dẫn tới iPad nhập mã, màn LED, và danh sách nhân viên.
+Trang đang chạy mở bằng một menu tối, tiêu đề Photobooth. Ba mục dẫn tới iPad nhập mã nhân viên, màn LED sân khấu, và danh sách quản trị.
+
+README của repo mô tả luồng bên trong. Người tham dự nhập tên trên iPad. Ứng dụng khớp tên với bảng nhân viên trên Supabase, ghi một trạng thái dùng chung, và màn LED hiện hoạt ảnh tên cùng số năm gắn bó. Nền LED dùng Three.js. Repo không ghi ngày diễn hay số người.
